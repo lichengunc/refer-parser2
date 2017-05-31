@@ -76,7 +76,7 @@ def main(params):
 	refer = REFER(params['data_root'], params['dataset'], params['splitBy'])
 
 	# parse sents
-	sents = refer.Sents.values()[:100]
+	sents = refer.Sents.values()
 	parse_sents(sents, params)
 
 	# save
@@ -92,7 +92,7 @@ if __name__ == '__main__':
 	parser.add_argument('--dataset', default='refcoco', help='dataset name')
 	parser.add_argument('--splitBy', default='unc', help='split By')
 	parser.add_argument('--corenlp_model', default='models/stanford-corenlp-full-2015-01-29')
-	parser.add_argument('--num_workers', default=2, help='number of workers')
+	parser.add_argument('--num_workers', type=int, default=2, help='number of workers')
 	args = parser.parse_args()
 	params = vars(args)
 	dataset_splitBy = params['dataset'] + '_' + params['splitBy']

@@ -2,8 +2,8 @@
 This code parse sentences into dependencies, parsetree, text and workds using Stanford-CoreNLP-Parser,
 but current corenlp is only able to load v3.5.1 and v3.5.2.
 
-The parsed sentences are saved in cache/parsed_sents/dataset_splitBy/parse.json
-Each parse.json = [{sent_id, sent, parse, raw, tokens}], where parse = {dependencies, parsetree, text, workds}
+The parsed sentences are saved in cache/parsed_sents/dataset_splitBy/sents.json
+The sents.json = [{sent_id, sent, parse, raw, tokens}], where parse = {dependencies, parsetree, text, workds}
 """
 import sys
 import os

@@ -7,9 +7,7 @@ reset: initialize parse, head word, rels and Deps.
 
 from nltk.tree import *
 import sys
-import nltk
 from nltk.corpus import stopwords
-nltk.data.path.append('/Users/liyu/Documents/nltk_data')
 import os.path as osp
 import config
 import head

@@ -1,6 +1,9 @@
 """
 This code parse sentences into dependencies, parsetree, text and workds using Stanford-CoreNLP-Parser,
 but current corenlp is only able to load v3.5.1 and v3.5.2.
+
+The parsed sentences are saved in cache/parsed_sents/dataset_splitBy/parse.json
+Each parse.json = [{sent_id, sent, parse, raw, tokens}], where parse = {dependencies, parsetree, text, workds}
 """
 import sys
 import os
@@ -67,8 +70,8 @@ def parse_sents(sents, params):
 def main(params):
 	
 	dataset_splitBy = params['dataset'] + '_' + params['splitBy']
-	if not osp.isdir('cache/parse/'+dataset_splitBy):
-		os.makedirs('cache/parse/'+dataset_splitBy)
+	if not osp.isdir('cache/parsed_sents/'+dataset_splitBy):
+		os.makedirs('cache/parsed_sents/'+dataset_splitBy)
 
 	# load refer
 	sys.path.insert(0, 'pyutils/refer')
@@ -80,7 +83,7 @@ def main(params):
 	parse_sents(sents, params)
 
 	# save
-	with open(osp.join('cache/parse/'+dataset_splitBy, 'parse.json'), 'w') as io:
+	with open(osp.join('cache/parsed_sents/'+dataset_splitBy, 'sents.json'), 'w') as io:
 		json.dump(sents, io)
 
 
@@ -95,7 +98,6 @@ if __name__ == '__main__':
 	parser.add_argument('--num_workers', type=int, default=2, help='number of workers')
 	args = parser.parse_args()
 	params = vars(args)
-	dataset_splitBy = params['dataset'] + '_' + params['splitBy']
 
 	# main
 	main(params)

@@ -15,7 +15,7 @@ from threading import Thread, Lock
 import time
 import argparse
 import json
-from corenlp import StanfordCoreNLP
+from pyutils.corenlp import StanfordCoreNLP
 
 def load_corenlp(params):
 	# load corenlp

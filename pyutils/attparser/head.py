@@ -90,15 +90,14 @@ if __name__ == '__main__':
     import sys
     from pprint import pprint
     import os.path as osp
-    ROOT_DIR = osp.abspath('/playpen/licheng/Documents/referit')
-    sys.path.insert(0, osp.join(ROOT_DIR, 'lib', 'utils'))
-    from corenlp.corenlp import StanfordCoreNLP
-    parser_path = osp.join(ROOT_DIR, 'lib', 'utils', 'corenlp', 'stanford-corenlp-full-2015-01-30')
-    parser = StanfordCoreNLP(parser_path)
+    sys.path.insert(0, '../..')
+    from pyutils.corenlp import StanfordCoreNLP
+    core = StanfordCoreNLP('../../models/stanford-corenlp-full-2015-01-29')
 
-    sent = "baseball man"
+    # sent = "baseball man"
     # sent = 'a running person under the tree.'
-    parse = parser.raw_parse(sent)['sentences'][0]
+    sent = 'a sandal colour teddy bear in between the other two teddys'
+    parse = core.raw_parse(sent)['sentences'][0]
     parse_tree = parse['parsetree']
     t = Tree.fromstring(parse_tree)
     t.draw()

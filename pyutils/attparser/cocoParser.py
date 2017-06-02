@@ -166,12 +166,16 @@ if __name__ == '__main__':
     import sys
     from pprint import pprint
     import os.path as osp
+    # set nltk data path
+    import nltk
+    nltk.data.path.append('/Users/liyu/Documents/nltk_data')
     sys.path.insert(0, '../..')
     from pyutils.corenlp import StanfordCoreNLP
     core = StanfordCoreNLP('../../models/stanford-corenlp-full-2015-01-29')
 
     # sent = 'face of woman to the left'
-    sent = 'guy in blue'
+    # sent = 'guy in blue'
+    sent = 'a sandal colour teddy bear in between the other two teddys'
     parse = core.raw_parse(sent)['sentences'][0]
     pprint(parse['dependencies'])
 
@@ -179,22 +183,6 @@ if __name__ == '__main__':
     attParser.reset(parse)
     pprint(attParser.decompose())
     pprint(attParser.leftWords())
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,3 +1,16 @@
+"""
+This code will call pyutils/attparser to parse each sentence into 7 attributes.
+The parser rule is according to Vicente's paper "Referit Game", EMNLP2014.
+Specifically, r1 = entry-level name, r2 = color, r3 = size, r4 = abs. location,
+r5 = rel. location, r6 = rel. object, r7 = generic, r8 = the left words
+
+Before running this code, make sure you have already run parse_sents.py, whose output is
+sents = [{sent_id, sent, parse, raw, tokens}]
+The attparser will fetch the parse of each sent, then decompose it into 7 categories.
+
+The output will be saved in 'cache/parsed_atts/dataset_splitBy/sents.json', where
+sents = [{sent_id, sent, parse, raw, tokens, atts, left}]
+"""
 import sys
 import os
 import os.path as osp

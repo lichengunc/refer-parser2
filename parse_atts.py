@@ -8,7 +8,8 @@ import json
 from pyutils.attparser import cocoParser, clefParser
 # set nltk data path
 import nltk
-nltk.data.path.append('/Users/liyu/Documents/nltk_data')
+# nltk.data.path.append('/Users/liyu/Documents/nltk_data')
+nltk.data.path.append('/mnt/ilcompf6d0/user/liyu/Developments/nltk_data')
 
 def analyze(sents):
 	# do some statistics
@@ -26,7 +27,7 @@ def main(params):
 	if not osp.isdir('cache/parsed_atts/' + dataset_splitBy):
 		os.makedirs('cache/parsed_atts/' + dataset_splitBy)
 
-	# load parsed sents, where sents.json = 
+	# load parsed sents, where sents.json =
 	# [{sent_id, sent, parse, raw, tokens}], where parse = {dependencies, parsetree, text, workds}
 	path_to_parsed_sents = osp.join('cache/parsed_sents', dataset_splitBy, 'sents.json')
 	sents = json.load(open(path_to_parsed_sents))
@@ -36,7 +37,7 @@ def main(params):
 		attparser = cocoParser.CocoParser()
 	elif 'refclef' in params['dataset']:
 		attparser = clefParser.ClefParser()
-	
+
 	for i, sent in enumerate(sents):
 		parse = sent['parse']
 		try:
@@ -44,7 +45,7 @@ def main(params):
 			sent['atts'] = attparser.decompose() # return list of atts, i.e., {r1: [man], r2: [blue], r3: [], ...}
 			sent['left'] = attparser.leftWords() # return list of (wd, pos), excluding stopping words
 		except:
-			sent['atts'] = {'r1': ['none'], 'r2': ['none'], 'r3': ['none'], 'r4': ['none'], 'r5': ['none'], 
+			sent['atts'] = {'r1': ['none'], 'r2': ['none'], 'r3': ['none'], 'r4': ['none'], 'r5': ['none'],
 			'r6': ['none'], 'r7': ['none'], 'r8': ['none']}
 			sent['left'] = attparser.leftWords()
 		if i % 100 == 0:
@@ -52,8 +53,8 @@ def main(params):
 
 	# analyze
 	analyze(sents)
-	
-	# save	
+
+	# save
 	with open(osp.join('cache/parsed_atts/', dataset_splitBy, 'sents.json'), 'w') as io:
 		json.dump(sents, io)
 

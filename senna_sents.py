@@ -38,7 +38,7 @@ def senna_sents(sents, params):
 			try:
 				senna = annotator.getAnnotations(sent['sent'])
 			except:
-				senna = annotator.getAnnotations(['none'])
+				senna = annotator.getAnnotations('none')
 			if i % 100 == 0:
 				print('%s/%s done.' % (i, num_sents))
 			sents[i]['senna'] = senna  

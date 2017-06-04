@@ -70,7 +70,7 @@ def main(params):
 	refer = REFER(params['data_root'], params['dataset'], params['splitBy'])
 	
 	# read sents and pop unnecessary keys 
-	sents = refer.Sents.values()[:1000]
+	sents = refer.Sents.values()
 	for sent in sents:
 		sent.pop('raw', None)
 
@@ -78,8 +78,10 @@ def main(params):
 	senna_sents(sents, params)
 
 	# save results
-	with open(osp.join(cur_folder, 'cache/senna_sents/'+dataset_splitBy, 'sents.json'), 'w') as io:
+	output_path = osp.join(cur_folder, 'cache/senna_sents/'+dataset_splitBy, 'sents.json')
+	with open(output_path, 'w') as io:
 		json.dump(sents, io)
+	print('senna parsed sents.json saved in %s.' % output_path)
 
 
 if __name__ == '__main__':

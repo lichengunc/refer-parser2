@@ -38,6 +38,7 @@ def senna_sents(sents, params):
 			try:
 				senna = annotator.getAnnotations(sent['sent'])
 			except:
+				print('exception found.')
 				senna = annotator.getAnnotations('none')
 			if i % 100 == 0:
 				print('%s/%s done.' % (i, num_sents))
@@ -59,21 +60,25 @@ def main(params):
 	if not osp.isdir('cache/senna_sents/' + dataset_splitBy):
 		os.makedirs('cache/senna_sents/' + dataset_splitBy)
 
+	# we have to prepare current folder path
+	# practnlptools might change current folder to python's site-packages
+	cur_folder = os.path.abspath('.')
+
 	# load refer
 	sys.path.insert(0, 'pyutils/refer')
 	from refer import REFER
 	refer = REFER(params['data_root'], params['dataset'], params['splitBy'])
 	
-	# parse sents	
-	sents = refer.Sents.values()
-	senna_sents(sents, params)
-
-	# pop unnecessary keys 
+	# read sents and pop unnecessary keys 
+	sents = refer.Sents.values()[:1000]
 	for sent in sents:
 		sent.pop('raw', None)
 
-	# save
-	with open(osp.join('cache/senna_sents/'+dataset_splitBy, 'sents.json'), 'w') as io:
+	# parse sents
+	senna_sents(sents, params)
+
+	# save results
+	with open(osp.join(cur_folder, 'cache/senna_sents/'+dataset_splitBy, 'sents.json'), 'w') as io:
 		json.dump(sents, io)
 
 

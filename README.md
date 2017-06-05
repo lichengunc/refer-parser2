@@ -23,32 +23,32 @@ Also note Stanford NLP group switches to Universal Dependencies standard since v
 We also use [SENNA](http://ronan.collobert.com/senna/)'s python wrapper, [practnlptools](https://pypi.python.org/pypi/practnlptools/1.0) to chunk each sentence into phrase structures.
 
 ## How to use
-Parse expressions using Stanford Parser:
+1a) Parse expressions using Stanford Parser:
 ```bash
 python parse_sents.py --dataset refcoco --splitBy unc --num_workers 4
 ```
-Parse expressions using [Vicente's R1-R7 attributes](http://tamaraberg.com/papers/referit.pdf):
+1b) Parse expressions using [Vicente's R1-R7 attributes](http://tamaraberg.com/papers/referit.pdf):
 ```bash
 python parse_atts.py --dataset refcoco --splitBy unc
 ```
-Visualize decomposed attributes:
+1c) Visualize decomposed attributes:
 ```bash
 python write_att_html.py --dataset refcoco --splitBy unc
 ```
 
-Parse expression using SENNA parser:
+2a) Parse expression using SENNA parser:
 ```bash
 python senna_sents.py --dataset refcoco --splitBy unc --num_workers 4
 ```
-Chunk expressions into phrase structures:
+2b) Chunk expressions into phrase structures:
 ```bash
 python chunk_sents.py --dataset refcoco --splitBy unc
 ```
-Analyze the phrase structures from the chunking results:
+2c) Analyze the phrase structures from the chunking results:
 ```bash
 python analize_chunk.py --dataset refcoco --splitBy unc
 ```
-Visualize the phrase structures:
+2d) Visualize the phrase structures:
 ```bash
 python write_chunk_html.py --dataset refcoco --splitBy unc
 ```

@@ -19,10 +19,10 @@ import json
 
 # nltk's stopping words
 import nltk
-nltk.data.path.append('/Users/liyu/Documents/nltk_data')
-# nltk.data.path.append('/mnt/ilcompf6d0/user/liyu/Developments/nltk_data')
+# nltk.data.path.append('/Users/liyu/Documents/nltk_data')
+nltk.data.path.append('/mnt/ilcompf6d0/user/liyu/Developments/nltk_data')
 from nltk.corpus import stopwords
-stop_words = stopwords.words("english") + ['.', ',', ':', '(', ')', '"', "'s", '!', 
+stop_words = stopwords.words("english") + ['.', ',', ':', '(', ')', '"', "'s", '!', "'",
 'between', 'against', 'above', 'below', 'up', 'down', 'out', 'off', 'over']
 stop_words.remove('and')  # we may need 'and' token, e.g., black and white
 

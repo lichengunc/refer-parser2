@@ -111,7 +111,8 @@ def main(params):
 		html.write('<td>sent_id</td>')
 		html.write('<td><b>Referring-expression</b></td>')
 		html.write('<td>Phrase Structure</td>')
-		html.write('<td>Noun Phrase(s)</td></tr>')
+		html.write('<td>Noun Phrase(s)</td>')
+		html.write('<td>Noun Word(s)</td></tr>')
 		for j in range(s, min(s+num_per_page, len(sents))):
 			if j % 2 == 0:
 				color_str = '#eef'
@@ -122,12 +123,14 @@ def main(params):
 			sent_txt = sents[j]['sent'].encode('ascii', 'ignore').decode('ascii')
 			chunk_txt = ' '.join(['(%s, %s)' % (ck[0], ck[1]) for ck in sents[j]['chunk']])
 			NPs_txt = ' '.join(['(%s, NP)' % phrase for phrase in sents[j]['NPs']])
+			NNs_txt = ' '.join(['(%s, NN)' % phrase for phrase in sents[j]['NNs']])
 			# write a row of the info
 			html.write('<tr style="background-color:%s"><td>%06d</td>' % (color_str, j))
 			html.write('<td>%s</td>' % sent_id)
 			html.write('<td style="width:400px">%s</td>' % sent_txt)
 			html.write('<td style="width:400px">%s</td>' % chunk_txt)
 			html.write('<td style="width:400px">%s</td>' % NPs_txt)
+			html.write('<td style="width:400px">%s</td>' % NNs_txt)
 			html.write('</td>')
 			html.write('</tr>')
 		html.write('</table>')

@@ -32,6 +32,14 @@ location_words =  ['right', 'left', 'top', 'bottom', 'middle', 'mid', 'second', 
 'leftmost', 'lower', 'rightmost', 'farthest', 'furthest', 'next', 'last', 'fourth', '4th', 'up', 'above', 'below', 
 'down', 'side']
 
+# color words
+color_words = ['white', 'green', 'blue', 'red', 'yellow', 'black', 'brown', 'pink', 'dark', 'darker', 'orange', 
+'gray', 'grey', 'purple', 'beige', 'bright']
+
+# size words
+size_words = ['big', 'bigger', 'biggest', 'small', 'smaller', 'smallest', 'tall', 'taller', 'tallest', 'large', 
+'larger', 'largest', 'little', 'short', 'shorter', 'tiny', 'long', 'longer', 'longest', 'huge']
+
 def extract_chunk(senna):
 	"""
 	senna = {chunk, pos, srl, syntax_tree, verbs, words, ner}
@@ -81,6 +89,26 @@ def extract_NPs(chunk):
 				NPs += [' '.join(filtered_wds)]
 	return NPs
 
+def extract_NNs(chunk, pos):
+	"""
+	Given chunk [(phrase, phrase_type)], e.g., [('the lady', 'NP'), ('with', 'PP'), 'the blue shirt', 'NP'],
+	and pos [(word, pos)], e.g., [('man', 'NN')]
+	we extract from NPs with stopping, location, color, size words filtered out, 
+	and return list of NN words only.
+	"""
+	forbid_wds = stop_words + location_words + color_words + size_words
+	NNs = []
+	for phrase, ptype in chunk:
+		if ptype == 'NP':
+			filtered_wds = []
+			for wd in phrase.split():
+				wd_pos = [p[1] for p in pos if p[0] == wd][0]
+				if wd not in forbid_wds and wd_pos != 'JJ' and wd_pos != 'CD':  # we don't need JJ nor CD words neither.
+					filtered_wds += [wd]
+			if len(' '.join(filtered_wds)) > 0:
+				NNs += [' '.join(filtered_wds)]
+	return NNs
+
 def main(params):
 
 	dataset_splitBy = params['dataset'] + '_' + params['splitBy']
@@ -97,8 +125,10 @@ def main(params):
 		senna = sent['senna']
 		chunk = extract_chunk(senna)
 		NPs = extract_NPs(chunk)
+		NNs = extract_NNs(chunk, senna['pos'])
 		sent['chunk'] = chunk
 		sent['NPs'] = NPs
+		sent['NNs'] = NNs
 		if i % 1000 == 0:
 			print('%s/%s done.' % (i+1, len(sents)))
 

@@ -16,6 +16,7 @@ This code is written in python and requires several libraries.
 practnlptools
 nltk
 corenlp
+unidecode
 ```
 We prune the core part of corenlp-python in this repository, whose original git can be downloaded [here](https://bitbucket.org/jeremybmerrill/corenlp-python.git). 
 Note this (our) corenlp is able to read [v3.5.1](http://nlp.stanford.edu/software/stanford-corenlp-full-2015-01-29.zip) and [v3.5.2](http://nlp.stanford.edu/software/stanford-corenlp-full-2015-04-20.zip), but not able to load V3.6.0. 

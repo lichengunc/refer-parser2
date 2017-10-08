@@ -67,9 +67,14 @@ def extract_chunk(senna):
 			if len(raw_chunk) == 1: 
 				if senna['pos'][0][1] == 'NN':  # when sentence = 'boy', senna ouputs 'O' but we take it as 'NP'
 					chunk += [(phrase, 'NP')]
+				else:
+					chunk += [(phrase, 'O')]
 			else:
 				chunk += [(phrase, 'O')]
 			phrase, pix = '', 0
+	# in case the last phrase has no "-E" to finish
+	if phrase != '':
+		chunk += [(phrase, c[1][2:])]
 	return chunk
 
 def extract_NPs(chunk):
@@ -126,6 +131,11 @@ def main(params):
 		chunk = extract_chunk(senna)
 		NPs = extract_NPs(chunk)
 		NNs = extract_NNs(chunk, senna['pos'])
+		# deal with special case: chunk failed
+		# won't extract NPs nor NNs for this faked ones.
+		if ' '.join([ck[0] for ck in chunk]) == 'none':
+			print('raise chunk error!')
+			chunk = [(sent['sent'], 'NP')]
 		sent['chunk'] = chunk
 		sent['NPs'] = NPs
 		sent['NNs'] = NNs

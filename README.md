@@ -47,7 +47,7 @@ python chunk_sents.py --dataset refcoco --splitBy unc
 ```
 2c) Analyze the phrase structures from the chunking results:
 ```bash
-python analize_chunk.py --dataset refcoco --splitBy unc
+python analyze_chunk.py --dataset refcoco --splitBy unc
 ```
 2d) Visualize the phrase structures:
 ```bash

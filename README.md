@@ -54,6 +54,8 @@ python analyze_chunk.py --dataset refcoco --splitBy unc
 python write_chunk_html.py --dataset refcoco --splitBy unc
 ```
 
+## Download
+* [**Parsed expressions**](http://bvision.cs.unc.edu/licheng/MattNet/refer-parser2/cache/parsed_atts.zip) using [Vicente's R1-R7 attributes](http://tamaraberg.com/papers/referit.pdf)
 
 ### License
 BSD License.
